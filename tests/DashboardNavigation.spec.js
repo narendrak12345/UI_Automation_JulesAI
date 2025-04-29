@@ -11,7 +11,7 @@ test.describe('Automate navigation to different sections post-login',()=>{
       test.beforeEach('Excute before test',async ({ page }) => {
       const login = new LoginPage(page);
       await login.goto();
-      await login.login(testdata[0].email,testdata[0].password);
+      await login.login(testdata.Valid[0].email,testdata.Valid[0].password);
       await expect(login.loginconfirmdemopage).toContainText("Demo");
     
     });
