@@ -1,0 +1,98 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Verify valid login and logout flows with data validation >> Verify valid login flows with data validation
+- Location: /Users/narendra/UI_Automation_JulesAI/tests/LoginTest.spec.js:8:3
+
+# Error details
+
+```
+Error: Timed out 5000ms waiting for expect(locator).toContainText(expected)
+
+Locator: locator('//div[text()="Demo"]')
+Expected string: "Demos"
+Received string: "Demo"
+Call log:
+  - expect.toContainText with timeout 5000ms
+  - waiting for locator('//div[text()="Demo"]')
+    3 × locator resolved to <div>Demo</div>
+      - unexpected value "Demo"
+
+    at /Users/narendra/UI_Automation_JulesAI/tests/LoginTest.spec.js:12:46
+```
+
+# Page snapshot
+
+```yaml
+- text: Demo Purchase & Opportunity list
+- searchbox "Search"
+- text: ⌘ + K
+- button "HelpHub"
+- button "Open notification feed":
+  - img
+- button
+- text: QJ Qa JULES
+- button
+- img
+- text: Summary Total Allocated Planned Booked Loaded
+- tablist:
+  - tab "Confirmed purchases" [selected]
+  - tab "Purchase opportunities"
+  - tab "Lost & Cancelled purchases"
+  - tab "Closed purchases"
+- tabpanel
+- searchbox "Search by purchase ref or other ref"
+- combobox:
+  - textbox "Buyer"
+  - button "Open"
+- combobox:
+  - textbox "Supplier site"
+  - button "Open"
+- combobox:
+  - textbox "Supplier"
+  - button "Open"
+- combobox:
+  - textbox "Materials"
+  - button "Open"
+- button "Others"
+- button
+- button "No saved view" [disabled]
+- button "Add a purchase"
+- progressbar:
+  - img
+```
+
+# Test source
+
+```ts
+   1 | const { test, expect } = require('@playwright/test');
+   2 | const { LoginPage } = require('../Pages/Login_page');
+   3 | const testdata=require('../Testdata/testData.json')
+   4 |
+   5 |
+   6 | test.describe('Verify valid login and logout flows with data validation',()=>{
+   7 |
+   8 |   test('Verify valid login flows with data validation', async ({ page }) => {
+   9 |     const login = new LoginPage(page);
+  10 |     await login.goto();
+  11 |     await login.login(testdata[0].email,testdata[0].password);
+> 12 |     await expect(login.loginconfirmdemopage).toContainText("Demos");
+     |                                              ^ Error: Timed out 5000ms waiting for expect(locator).toContainText(expected)
+  13 |   });
+  14 |   test('Verify logout flows with data validation', async ({ page }) => {
+  15 |     const login = new LoginPage(page);
+  16 |     await login.goto();
+  17 |     await login.login(testdata[0].email,testdata[0].password);
+  18 |     await expect(login.loginconfirmdemopage).toContainText("Demo");
+  19 |     await login.logout();
+  20 |     await login.loginbtn.waitFor({state:'visible'});
+  21 |     await expect(login.loginbtn).toContainText("Log in");
+  22 |
+  23 |   });
+  24 | });
+```

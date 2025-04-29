@@ -1,0 +1,133 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: Automate navigation to different sections post-login >> Verify navigations for logistics rate management
+- Location: /Users/narendra/UI_Automation_JulesAI/tests/DashboardNavigation.spec.js:76:7
+
+# Error details
+
+```
+Error: Timed out 5000ms waiting for expect(locator).toContainText(expected)
+
+Locator: locator('//div[text()="Demo"]')
+Expected string: "Demo"
+Received: <element(s) not found>
+Call log:
+  - expect.toContainText with timeout 5000ms
+  - waiting for locator('//div[text()="Demo"]')
+
+    at /Users/narendra/UI_Automation_JulesAI/tests/DashboardNavigation.spec.js:15:48
+```
+
+# Page snapshot
+
+```yaml
+- text: Demo Purchase & Opportunity list
+- searchbox "Search"
+- text: ⌘ + K
+- button "HelpHub"
+- button "Open notification feed":
+  - img
+- button
+- text: QJ Qa JULES
+- button
+- img
+- progressbar:
+  - img
+```
+
+# Test source
+
+```ts
+   1 |
+   2 | const { test, expect } = require('@playwright/test');
+   3 | const { LoginPage } = require('../Pages/Login_page');
+   4 | const{DashboardNaigationpage}=require('../Pages/DashboardNaigation_page')
+   5 | const testdata=require('../Testdata/testData.json')
+   6 |
+   7 |
+   8 | test.describe('Automate navigation to different sections post-login',()=>{
+   9 |
+  10 |
+  11 |       test.beforeEach('Excute before test',async ({ page }) => {
+  12 |       const login = new LoginPage(page);
+  13 |       await login.goto();
+  14 |       await login.login(testdata[0].email,testdata[0].password);
+> 15 |       await expect(login.loginconfirmdemopage).toContainText("Demo");
+     |                                                ^ Error: Timed out 5000ms waiting for expect(locator).toContainText(expected)
+  16 |     
+  17 |     });
+  18 |     test('Verify navigations for suppliers and customers', async ({ page }) => {
+  19 |       const dashboard = new DashboardNaigationpage(page);
+  20 |       await dashboard.Mouse_hover_On_Dashboard()
+  21 |       await dashboard.Naviagte_To_Suppliers_And_Sites();
+  22 |       await expect(dashboard.supplierNewsupplier).toContainText("Add a new supplier");
+  23 |       await dashboard.Mouse_hover_On_Dashboard()
+  24 |       await dashboard.Naviagte_To_Customers_And_Sites();
+  25 |       await expect(dashboard.suppliernewCustomer).toContainText("Add a new customer");
+  26 |       await dashboard.Mouse_hover_On_Dashboard()
+  27 |       await dashboard.Naviagte_To_Contacts()
+  28 |       await expect(dashboard.supplierNewContact).toContainText("Add a new contact");
+  29 |       
+  30 |     });
+  31 |     test('Verify navigations for purchases', async ({ page }) => {
+  32 |         const dashboard = new DashboardNaigationpage(page);
+  33 |         await dashboard.Naviagte_To_Puchases_Trading()
+  34 |         await expect(dashboard.purchasessummary).toContainText("Summary");
+  35 |         await dashboard.Naviagte_To_Puchases_Recycling()
+  36 |         await expect(dashboard.purchasesAddapurchase).toContainText("Add a purchase");
+  37 |         await dashboard.Naviagte_To_headphone()
+  38 |
+  39 |       });
+  40 |
+  41 |       test('Verify navigations for sales', async ({ page }) => {
+  42 |         const dashboard = new DashboardNaigationpage(page);
+  43 |         await dashboard.Naviagte_To_Sales()
+  44 |         await expect(dashboard.addaSales).toContainText("Add a sale");
+  45 |
+  46 |       });
+  47 |       test('Verify navigations for Inventory', async ({ page }) => {
+  48 |         const dashboard = new DashboardNaigationpage(page);
+  49 |         await dashboard.Naviagte_To_Inventory()
+  50 |         await expect(dashboard.Totalinbond).toContainText("Total in inbound");
+  51 |
+  52 |       });
+  53 |   
+  54 |
+  55 |       test('Verify navigations for Riskmanagement', async ({ page }) => {
+  56 |         const dashboard = new DashboardNaigationpage(page);
+  57 |         await dashboard.Naviagte_To_Riskmanagement_hedgingcontracts()
+  58 |         await expect(dashboard.hedgingcontracts).toContainText("Hedging contracts");
+  59 |         await dashboard.Naviagte_To_Riskmanagemnt_position_report()
+  60 |         await expect(dashboard.Overallposition).toContainText("Overall position")
+  61 |       });
+  62 |       test('Verify navigations for logistics', async ({ page }) => {
+  63 |         const dashboard = new DashboardNaigationpage(page);
+  64 |         await dashboard.Naviagte_To_logistics_PlanningBooking()
+  65 |         await expect(dashboard.planningBooking).toContainText("Planning/Booking");
+  66 |         await dashboard.Naviagte_To_logistics_LoadsandHolds()
+  67 |         await expect(dashboard.LoadsHolds).toContainText("Loads/Holds");
+  68 |         await dashboard.Naviagte_To_logistics_Bookings()
+  69 |         await expect(dashboard.Bookings).toContainText("Bookings");
+  70 |         await dashboard.Naviagte_To_logistics_Shipments()
+  71 |         await expect(dashboard.shipments).toContainText("Shipments");
+  72 |         await dashboard.Naviagte_To_logistics_shipmentTracking()
+  73 |         await expect(dashboard.Shipmenttracking).toContainText("Shipment tracking");
+  74 |
+  75 |       });
+  76 |       test('Verify navigations for logistics rate management', async ({ page }) => {
+  77 |         const dashboard = new DashboardNaigationpage(page);
+  78 |         await dashboard.Naviagte_To_logisticsrates_Rate_management()
+  79 |         await expect(dashboard.Ratemanagementexport).toContainText("Rate management - Export")
+  80 |         await dashboard.Naviagte_To_logisticsrates_Rate_Explorer()
+  81 |         await expect(dashboard.Rateexplorerexport).toContainText("Rate explorer - Export")
+  82 |         
+  83 |       });
+  84 |   });
+  85 |   
+```

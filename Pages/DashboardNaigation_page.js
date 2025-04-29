@@ -189,6 +189,5 @@ class DashboardNaigationpage {
 
   }
 
-
 }
 module.exports = { DashboardNaigationpage };

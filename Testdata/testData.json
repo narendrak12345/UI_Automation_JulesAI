@@ -1,12 +1,17 @@
-[
 {
-    "description": "Valid credentials",
-    "email": "qa@julesai.com",
-    "password": "QaJULES2023!"
-  },
-  {
-    "description": "InValid credentials",
-    "email": "Notvalid@example.com",
-    "password": "WrongPassword"
-  }
-]
+  "Valid": [
+    {
+      "description": "Valid credentials",
+      "email": "qa@julesai.com",
+      "password": "QaJULES2023!"
+    }
+  ],
+  "Invalid": [
+    {
+      "description": "Invalid credentials",
+      "email": "Notvalid@example.com",
+      "password": "WrongPassword"
+    }
+  ]
+}
+
