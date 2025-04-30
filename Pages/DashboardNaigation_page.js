@@ -1,5 +1,6 @@
 
 const { Page } = require('@playwright/test');
+const{helper}=require('../Utilityhelper/CommonMethods')
 
 class DashboardNaigationpage {
   /**
@@ -8,9 +9,10 @@ class DashboardNaigationpage {
   constructor(page) {
     this.page = page;
     this.suppliercustomersDashboard = page.locator('//*[@data-testid="LibraryBooksIcon"]');
-    this.SuppliersandSites = page.locator('//*[text()="Suppliers & Sites"]');
-    this.Suppliersandcustomers = page.locator('//*[text()="Customers & Sites"]');
-    this.SuppliersAndContacts = page.locator('//*[text()="Contacts"]');
+    //this.SuppliersandSites = page.locator('//*[text()="Suppliers & Sites"]');
+    //this.supplu="//*[text()='Suppliers & Sites']";
+    //this.Suppliersandcustomers = page.locator('//*[text()="Customers & Sites"]');
+    //this.SuppliersAndContacts = page.locator('//*[text()="Contacts"]');
     this.supplierNewsupplier=page.locator('//*[text()="Add a new supplier"]')
     this.suppliernewCustomer=page.locator('//*[text()="Add a new customer"]')
     this.supplierNewContact=page.locator('//*[text()="Add a new contact"]')
@@ -66,23 +68,20 @@ class DashboardNaigationpage {
   }
   async Naviagte_To_Suppliers_And_Sites(){
 
-    await this.SuppliersandSites.waitFor({state:'visible'});
-    await this.SuppliersandSites.click()
-    await this.supplierNewsupplier.waitFor({state:'visible'});
+    const help=new helper(this.page);
+    help.clickElementBytext("Suppliers & Sites")
 
   }
   async Naviagte_To_Customers_And_Sites(){
 
-    await this.Suppliersandcustomers.waitFor({state:'visible'});
-    await this.Suppliersandcustomers.click()
-    await this.suppliernewCustomer.waitFor({state:'visible'});
+    const help=new helper(this.page);
+    help.clickElementBytext("Customers & Sites")
 
   }
   async Naviagte_To_Contacts(){
 
-    await this.SuppliersAndContacts.waitFor({state:'visible'});
-    await this.SuppliersAndContacts.click()
-    await this.supplierNewContact.waitFor({state:'visible'});
+    const help=new helper(this.page);
+    help.clickElementBytext("Contacts")
 
   }
   async Naviagte_To_Puchases_Trading(){
